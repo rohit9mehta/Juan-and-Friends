@@ -23,13 +23,27 @@ driver = webdriver.Chrome(executable_path=r"/Users/rohitm/Downloads/chromedriver
 #cuisine = 'Salads'
 #seamlessURL = 'https://www.seamless.com/search?orderMethod=delivery&locationMode=DELIVERY&facetSet=umamiV2&pageSize=20&hideHateos=true&searchMetrics=true&latitude=' + str(latitude) + '&longitude=' + str(longitude) + '&preciseLocation=true&facet=cuisine%3A' + cuisine + '&sortSetId=umamiv3&countOmittingTimes=true&sponsoredSize=3'
 #deliveryURL = 'https://www.ebay.com/itm/Canon-EOS-5D-Mark-IV-Digital-SLR-Camera-Body-Only/323086614873'
-def translator(message):
+def translator(message, language):
     message = message.replace(" ", "%20")
-    url = 'https://www.spanishdict.com/translate/' + message
+    if language == 'spanish':
+        url = 'https://www.spanishdict.com/translate/' + message
+    elif language == 'french':
+        url = 'https://translate.google.com/?um=1&ie=UTF-8&tl=fr#view=home&op=translate&sl=auto&tl=fr&text=' + message
+    elif language == 'russian':
+        url = 'https://translate.google.com/?um=1&ie=UTF-8&tl=ru#view=home&op=translate&sl=auto&tl=ru&text=' + message
+    elif language == 'italian':
+        url = 'https://translate.google.com/?um=1&ie=UTF-8&tl=it#view=home&op=translate&sl=auto&tl=it&text=' + message
+    elif language == 'hindi':
+        url = 'https://translate.google.com/?um=1&ie=UTF-8&tl=hi#view=home&op=translate&sl=auto&tl=hi&text=' + message
     driver.get(url)
     time.sleep(2)
     try:
-        results = driver.find_elements_by_xpath("//*[@class='translation--1A9t-']")
+        if language == 'spanish':
+            results = driver.find_elements_by_xpath("//*[@class='translation--1A9t-']")
+        elif language == 'hindi':
+            results = driver.find_elements_by_xpath("//*[@class='tlid-transliteration-content transliteration-content full']")
+        else:
+            results = driver.find_elements_by_xpath("//*[@class='tlid-translation translation']")
         for result in results:
             data = result.text
         return data

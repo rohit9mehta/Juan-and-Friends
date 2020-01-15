@@ -68,8 +68,8 @@ except:
 tensorflow.reset_default_graph()
 
 net = tflearn.input_data(shape=[None, len(training[0])])
-net = tflearn.fully_connected(net, 10)
-net = tflearn.fully_connected(net, 10)
+net = tflearn.fully_connected(net, 8)
+net = tflearn.fully_connected(net, 8)
 net = tflearn.fully_connected(net, len(output[0]), activation="softmax")
 net = tflearn.regression(net)
 
@@ -94,6 +94,8 @@ def bag_of_words(s, words):
     return numpy.array(bag)
 
 def chat():
+    languages = ['spanish', 'french', 'italian', 'russian', 'hindi']
+    name = ['Juan', 'Pierre', 'Giordano', 'Moltov', 'Kapil']
     print("Start talking with the bot. Type quit to stop")
     while True:
         inp = input("You: ")
@@ -107,13 +109,14 @@ def chat():
                 if tg['tag'] == tag:
                     responses = tg['responses']
                     print(random.choice(responses))
-            if tag == 'translate':
-                    print("¡Hola! Please enter text in English to be translated. Type 'fin' to exit")
+            if tag in languages:
+                    location = languages.index(tag)
+                    print("Hello! Please enter text in English to be translated. Type 'done' to exit")
                     inp = input("You: ")
-                    while inp.lower() != "fin":
-                        print("Juan: " + translator(str(inp)))
+                    while inp.lower() != "done":
+                        print(name[location] + ": " + translator(str(inp), tag))
                         inp = input("You: ")
-                    print("Juan: ¡Adiós! Hope to see you again!")
+                    print(name[location] + ": Hope to see you again!")
         else:
             print("Sorry, I didn't quite get that. Please try again")
 

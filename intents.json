@@ -12,21 +12,25 @@
      "patterns": ["Thanks", "Thank you", "That's helpful"],
      "responses": ["Happy to help!", "Any time!", "My pleasure"]
     },
-    {"tag": "hours",
-     "patterns": ["What hours are you open?", "What are your hours?", "When are you open?" ],
-     "responses": ["We're open every day 9am-9pm", "Our hours are 9am-9pm every day"]
-    },
-    {"tag": "payments",
-     "patterns": ["Do you take credit cards?", "Do you accept Mastercard?", "Are you cash only?" ],
-     "responses": ["We accept VISA, Mastercard and AMEX", "We accept most major credit cards"]
-    },
-    {"tag": "translate",
+    {"tag": "spanish",
      "patterns": ["español", "spanish", "Can you translate English into Spanish?"],
      "responses": ["Screeching in Juan's ear to wake him...", "Pouring water on Juan to wake him..."]
     },
-    {"tag": "opentoday",
-     "patterns": ["Are you open today?", "When do you open today?", "What are your hours today?"],
-     "responses": ["We're open every day from 9am-9pm", "Our hours are 9am-9pm every day"]
+    {"tag": "french",
+     "patterns": ["france", "french", "Can you translate English into French?"],
+     "responses": ["Screeching in Pierre's ear to wake him...", "Pouring water on Pierre to wake him..."]
+    },
+    {"tag": "russian",
+     "patterns": ["russia", "russian", "Can you translate English into Russian?"],
+     "responses": ["Screeching in Moltov's ear to wake him...", "Pouring water on Moltov to wake him..."]
+    },
+    {"tag": "italian",
+     "patterns": ["italy", "italian", "Can you translate English into Italian?"],
+     "responses": ["Screeching in Giordano's ear to wake him...", "Pouring water on Giordano to wake him..."]
+    },
+    {"tag": "hindi",
+     "patterns": ["hindu", "hindi", "Can you translate English into Hindi?"],
+     "responses": ["Screeching in Kapil's ear to wake him...", "Pouring water on Kapil to wake him..."]
     }
 ]
 }

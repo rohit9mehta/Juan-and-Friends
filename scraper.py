@@ -44,7 +44,6 @@ def translator(message, language=None, place=False):
     time.sleep(2)
     try:
         data = ""
-        count = 0
         if language:
             if language == 'spanish':
                 results = driver.find_elements_by_xpath("//*[@class='translation--1A9t-']")

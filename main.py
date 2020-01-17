@@ -68,8 +68,8 @@ except:
 tensorflow.reset_default_graph()
 
 net = tflearn.input_data(shape=[None, len(training[0])])
-net = tflearn.fully_connected(net, 8)
-net = tflearn.fully_connected(net, 8)
+net = tflearn.fully_connected(net, 9)
+net = tflearn.fully_connected(net, 9)
 net = tflearn.fully_connected(net, len(output[0]), activation="softmax")
 net = tflearn.regression(net)
 
@@ -77,7 +77,7 @@ model = tflearn.DNN(net)
 try:
     model.load("model.tflearn")
 except:
-    model.fit(training, output, n_epoch=1000, batch_size=8, show_metric=True)
+    model.fit(training, output, n_epoch=1000, batch_size=9, show_metric=True)
     model.save("model.tflearn")
 
 def bag_of_words(s, words):
@@ -110,13 +110,21 @@ def chat():
                     responses = tg['responses']
                     print(random.choice(responses))
             if tag in languages:
-                    location = languages.index(tag)
-                    print("Hello! Please enter text in English to be translated. Type 'done' to exit")
+                location = languages.index(tag)
+                print("Hello! Please enter text in English to be translated. Type 'done' to exit")
+                inp = input("You: ")
+                while inp.lower() != "done":
+                    print(name[location] + ": " + translator(str(inp), tag))
                     inp = input("You: ")
-                    while inp.lower() != "done":
-                        print(name[location] + ": " + translator(str(inp), tag))
-                        inp = input("You: ")
-                    print(name[location] + ": Hope to see you again!")
+                print(name[location] + ": Hope to see you again!")
+            elif tag == 'travel':
+                print("Hello! Please enter where you wish to travel to (country or city). Type 'done' to exit")
+                inp = input("You: ")
+                while inp.lower() != "done":
+                    print("Here are 4 places you won't want to miss:" +  translator(str(inp), None, True))
+                    inp = input("You: ")
+                print("Best of luck and safe travels!")
+         
         else:
             print("Sorry, I didn't quite get that. Please try again")
 

@@ -23,8 +23,11 @@ driver = webdriver.Chrome(executable_path=r"/Users/rohitm/Downloads/chromedriver
 #cuisine = 'Salads'
 #seamlessURL = 'https://www.seamless.com/search?orderMethod=delivery&locationMode=DELIVERY&facetSet=umamiV2&pageSize=20&hideHateos=true&searchMetrics=true&latitude=' + str(latitude) + '&longitude=' + str(longitude) + '&preciseLocation=true&facet=cuisine%3A' + cuisine + '&sortSetId=umamiv3&countOmittingTimes=true&sponsoredSize=3'
 #deliveryURL = 'https://www.ebay.com/itm/Canon-EOS-5D-Mark-IV-Digital-SLR-Camera-Body-Only/323086614873'
-def translator(message, language):
-    message = message.replace(" ", "%20")
+def translator(message, language=None, place=False):
+    if language:
+        message = message.replace(" ", "%20")
+    elif place:
+        message = message.lower().replace(" ", "-")
     if language == 'spanish':
         url = 'https://www.spanishdict.com/translate/' + message
     elif language == 'french':
@@ -35,18 +38,34 @@ def translator(message, language):
         url = 'https://translate.google.com/?um=1&ie=UTF-8&tl=it#view=home&op=translate&sl=auto&tl=it&text=' + message
     elif language == 'hindi':
         url = 'https://translate.google.com/?um=1&ie=UTF-8&tl=hi#view=home&op=translate&sl=auto&tl=hi&text=' + message
+    elif place != None:
+        url = 'https://www.google.com/search?ei=NCAhXpu-MaK90PEPjuu26Ac&q=things+to+do+in+' + message
     driver.get(url)
     time.sleep(2)
     try:
-        if language == 'spanish':
-            results = driver.find_elements_by_xpath("//*[@class='translation--1A9t-']")
-        elif language == 'hindi':
-            results = driver.find_elements_by_xpath("//*[@class='tlid-transliteration-content transliteration-content full']")
+        data = ""
+        count = 0
+        if language:
+            if language == 'spanish':
+                results = driver.find_elements_by_xpath("//*[@class='translation--1A9t-']")
+            elif language == 'hindi':
+                results = driver.find_elements_by_xpath("//*[@class='tlid-transliteration-content transliteration-content full']")
+            else:
+                results = driver.find_elements_by_xpath("//*[@class='tlid-translation translation']")
+        elif place:
+            results = driver.find_elements_by_xpath("//*[@class='gRTukd T2uyV']")
+            descriptions = driver.find_elements_by_xpath("//*[@class='gRTukd pa72cd']")
+        if descriptions:
+            for result, description in zip(results, descriptions):
+                converted = result.text + "\n" + "  - " + description.text
+                data = data + "\n" + converted
         else:
-            results = driver.find_elements_by_xpath("//*[@class='tlid-translation translation']")
-        for result in results:
-            data = result.text
+            for result in results:
+                converted = result.text
+                data = data + "\n" + converted
+
         return data
+
     except:
         return "¡Lo siento, mi amigo! Please try again using a more complex sentence: this isn't for Spanish 1 homework!"
 

@@ -31,6 +31,10 @@
     {"tag": "hindi",
      "patterns": ["hindu", "hindi", "Can you translate English into Hindi?"],
      "responses": ["Screeching in Kapil's ear to wake him...", "Pouring water on Kapil to wake him..."]
+    },
+    {"tag": "travel",
+     "patterns": ["I want to travel somewhere", "places to go", "Can you help me plan my trip?"],
+     "responses": ["Loading Trip Planner...", "Starting up Trip Planner..."]
     }
 ]
 }
